@@ -1,0 +1,100 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #090D16;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+/* Article Card Hover Effects */
+.article-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.article-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 12px 24px -8px rgba(99, 102, 241, 0.15);
+}
+
+.article-card:hover .card-img {
+    transform: scale(1.04);
+}
+
+.card-img {
+    transition: transform 0.5s ease;
+}
+
+/* Modal Content HTML Styling */
+#modal-content p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #CBD5E1;
+}
+
+#modal-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #F8FAFC;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #6366F1;
+    padding-left: 0.75rem;
+}
+
+#modal-content h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #818CF8;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#modal-content blockquote {
+    border-left: 4px solid #A855F7;
+    background-color: rgba(88, 28, 135, 0.15);
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-style: italic;
+    color: #E2E8F0;
+    margin: 1.5rem 0;
+}
+
+#modal-content ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 1.5rem;
+    space-y: 0.5rem;
+    color: #CBD5E1;
+}
+
+#modal-content strong {
+    color: #F1F5F9;
+}

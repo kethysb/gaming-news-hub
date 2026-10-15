@@ -1,0 +1,1 @@
+# Zero dependencias externas (utiliza bibliotecas nativas de alto desempenho)

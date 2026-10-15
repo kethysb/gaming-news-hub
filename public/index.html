@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS GAMING | Notícias de Jogos, Lançamentos & Ofertas Exclusivas</title>
+    <meta name="description" content="Portal gamer #1 em notícias em tempo real, lançamentos, vazamentos e as melhores ofertas de jogos para PlayStation, Xbox, PC e Nintendo com ativação imediata.">
+    <meta name="keywords" content="jogos, comprar jogos, noticias games, lancamentos ps5, xbox game pass, ofertas steam, precos de jogos">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NEXUS GAMING | Radar de Notícias & Ofertas de Games">
+    <meta property="og:description" content="Confira as novidades mais quentes do mundo dos games e garanta os melhores descontos do dia.">
+    
+    <!-- Schema.org Dynamic JSON-LD Injection Point -->
+    <script type="application/ld+json" id="seo-schema-jsonld">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "NEXUS GAMING",
+        "url": "http://127.0.0.1:28888",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "http://127.0.0.1:28888/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gaming: {
+                            dark: '#0B0F19',
+                            card: '#131B2E',
+                            accent: '#6366F1',
+                            neon: '#10B981',
+                            purple: '#8B5CF6',
+                            rose: '#F43F5E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-[#090D16] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif] min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Breaking Ticker -->
+    <div class="bg-indigo-950/60 border-b border-indigo-900/50 py-2 px-4 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <span class="bg-red-500/20 text-red-400 border border-red-500/40 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5 animate-pulse">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Radar Reddit
+                </span>
+                <div id="breaking-ticker" class="text-slate-300 truncate font-medium">
+                    Carregando últimas notícias dos fóruns e portais gamers...
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-4 text-slate-400">
+                <span id="stats-badge" class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-amber-400"></i> <strong class="text-white" id="total-articles-count">--</strong> matérias geradas</span>
+                <span class="w-1 h-1 bg-slate-700 rounded-full"></span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle text-emerald-400 text-[8px] animate-ping"></i> <span class="text-emerald-400 font-semibold">Ao Vivo</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="sticky top-0 z-40 bg-[#090D16]/90 backdrop-blur-xl border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-all">
+                    <i class="fa-solid fa-gamepad text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="font-['Space_Grotesk'] text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
+                        NEXUS <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">GAMING</span>
+                    </h1>
+                    <p class="text-[10px] text-indigo-300/80 font-bold uppercase tracking-widest">Radar de Notícias Virais</p>
+                </div>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="hidden lg:flex flex-1 max-w-md mx-6">
+                <div class="relative w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="search-input" placeholder="Pesquisar jogos, lançamentos, vazamentos..." 
+                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2.5">
+                <button id="btn-scan-now" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/20 flex items-center gap-2 transition-all active:scale-95">
+                    <i class="fa-solid fa-arrows-rotate" id="scan-icon"></i>
+                    <span class="hidden sm:inline">Escanear Reddit Agora</span>
+                    <span class="sm:hidden">Escanear</span>
+                </button>
+
+                <button id="btn-open-logs" title="Painel & Logs do Radar" class="bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 p-2.5 rounded-xl transition-all">
+                    <i class="fa-solid fa-terminal text-sm"></i>
+                </button>
+
+                <button id="btn-open-settings" title="Configurações & Chaves" class="bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-200 p-2.5 rounded-xl transition-all">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Hero Section: Destaque Viral -->
+        <div id="hero-featured" class="mb-10">
+            <!-- Inserido dinamicamente via JS -->
+        </div>
+
+        <!-- Categories Filter Bar -->
+        <div class="flex items-center justify-between gap-4 mb-8 overflow-x-auto pb-2 scrollbar-none">
+            <div class="flex items-center gap-2" id="category-filters">
+                <button data-cat="Todos" class="cat-btn active bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all shadow-md shadow-indigo-500/20">
+                    <i class="fa-solid fa-fire mr-1.5"></i> Todos
+                </button>
+                <button data-cat="PlayStation" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-brands fa-playstation mr-1.5 text-blue-400"></i> PlayStation
+                </button>
+                <button data-cat="Xbox" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-brands fa-xbox mr-1.5 text-green-400"></i> Xbox
+                </button>
+                <button data-cat="PC Gaming" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-brands fa-steam mr-1.5 text-cyan-400"></i> PC Gaming
+                </button>
+                <button data-cat="Nintendo" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-gamepad mr-1.5 text-red-400"></i> Nintendo
+                </button>
+                <button data-cat="Promoções" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-gift mr-1.5 text-emerald-400"></i> Jogos Grátis
+                </button>
+                <button data-cat="Vazamentos" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-user-secret mr-1.5 text-amber-400"></i> Vazamentos
+                </button>
+                <button data-cat="Lançamentos" class="cat-btn bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-rocket mr-1.5 text-purple-400"></i> Lançamentos
+                </button>
+            </div>
+        </div>
+
+        <!-- News Feed Grid -->
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="font-['Space_Grotesk'] text-xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-newspaper text-indigo-400"></i> Feed de Notícias em Tempo Real
+            </h2>
+            <span id="feed-status-text" class="text-xs text-slate-400">Atualizado automaticamente</span>
+        </div>
+
+        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Inserido dinamicamente via JS -->
+            <div class="col-span-full py-16 text-center text-slate-500">
+                <i class="fa-solid fa-circle-notch fa-spin text-3xl text-indigo-500 mb-3"></i>
+                <p>Carregando as últimas notícias do radar...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Article Reader Modal -->
+    <div id="article-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-[#111625] border border-slate-700/80 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn">
+            
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60 sticky top-0 z-10 backdrop-blur-md">
+                <div class="flex items-center gap-2">
+                    <span id="modal-category-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                        PlayStation
+                    </span>
+                    <span id="modal-date" class="text-xs text-slate-400 ml-2">--</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="btn-share-whatsapp" class="text-slate-400 hover:text-emerald-400 p-2 transition-all" title="Compartilhar no WhatsApp">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </button>
+                    <button id="btn-share-x" class="text-slate-400 hover:text-white p-2 transition-all" title="Compartilhar no X">
+                        <i class="fa-brands fa-x-twitter text-lg"></i>
+                    </button>
+                    <button id="btn-close-modal" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 w-9 h-9 rounded-xl flex items-center justify-center transition-all ml-2">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body Scrollable -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-6">
+                
+                <h1 id="modal-title" class="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    Título da Notícia
+                </h1>
+
+                <!-- Author & Stats Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 py-3 border-y border-slate-800/80 text-xs text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-[10px]">
+                            AI
+                        </div>
+                        <span>Redação Gamer AI • <span id="modal-views">0</span> visualizações</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span id="modal-upvotes" class="text-amber-400 font-semibold"><i class="fa-solid fa-arrow-up mr-1"></i>0 upvotes</span>
+                        <span id="modal-comments" class="text-indigo-400 font-semibold"><i class="fa-solid fa-comments mr-1"></i>0 comentários</span>
+                    </div>
+                </div>
+
+                <!-- Cover Image -->
+                <div class="rounded-xl overflow-hidden max-h-96 w-full relative">
+                    <img id="modal-image" src="" alt="Capa" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Article Content -->
+                <div id="modal-content" class="text-slate-200 text-base leading-relaxed space-y-4">
+                    <!-- Conteúdo HTML -->
+                </div>
+
+                <!-- Source Links Footer -->
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <span class="text-slate-400">Fontes originais da matéria:</span>
+                    <div class="flex items-center gap-3">
+                        <a id="modal-source-link" href="#" target="_blank" class="text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Matéria Original
+                        </a>
+                        <a id="modal-reddit-link" href="#" target="_blank" class="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1.5">
+                            <i class="fa-brands fa-reddit"></i> Thread no Reddit
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Buy Bar Footer -->
+            <div id="modal-sticky-buy" class="p-4 sm:p-5 border-t border-indigo-900/40 bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 flex items-center justify-between gap-4 sticky bottom-0 z-20 backdrop-blur-xl">
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:flex w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                            <span id="sticky-discount-badge">OFERTA ESPECIAL</span>
+                        </div>
+                        <div class="text-sm sm:text-base font-bold text-white truncate max-w-xs sm:max-w-md" id="sticky-title-preview">
+                            Garantir Edição Digital
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="text-right hidden sm:block">
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest block">Melhor Preço</span>
+                        <span class="text-lg sm:text-xl font-black text-emerald-400" id="sticky-price-display">R$ 149,90</span>
+                    </div>
+                    <a id="sticky-buy-btn" href="#" target="_blank" rel="noopener noreferrer" 
+                       class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl shadow-lg shadow-emerald-500/30 flex items-center gap-2 transition-all transform active:scale-95 whitespace-nowrap">
+                        <i class="fa-solid fa-cart-shopping"></i> Comprar Agora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs / Radar Control Modal -->
+    <div id="logs-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-[#111625] border border-slate-700/80 rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900">
+                <h3 class="font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-terminal text-indigo-400"></i> Monitor do Radar & Logs
+                </h3>
+                <button id="btn-close-logs" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-4 flex-1 overflow-y-auto space-y-2 font-mono text-xs" id="logs-container">
+                <div class="text-slate-500">Carregando logs do sistema...</div>
+            </div>
+            <div class="p-4 border-t border-slate-800 bg-slate-900 flex justify-between items-center text-xs">
+                <span class="text-slate-400">Atualizado a cada ciclo</span>
+                <button id="btn-refresh-logs" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">
+                    <i class="fa-solid fa-rotate-right mr-1"></i> Atualizar Logs
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-[#111625] border border-slate-700/80 rounded-2xl max-w-lg w-full flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900">
+                <h3 class="font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-gear text-indigo-400"></i> Configurações do Radar & IA
+                </h3>
+                <button id="btn-close-settings" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <form id="settings-form" class="p-6 space-y-4 text-sm">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Piloto Automático (Auto-Publish)</label>
+                    <select id="set-autopilot" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white">
+                        <option value="true">Ativo (Gera e publica artigos automaticamente)</option>
+                        <option value="false">Pausado (Apenas manual)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Intervalo de Varredura</label>
+                    <select id="set-interval" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white">
+                        <option value="1">A cada 1 minuto (Ultra Rápido)</option>
+                        <option value="3" selected>A cada 3 minutos (Recomendado)</option>
+                        <option value="5">A cada 5 minutos</option>
+                        <option value="10">A cada 10 minutos</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Motor de IA</label>
+                    <select id="set-ai-provider" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white">
+                        <option value="builtin">IA Nativa Editorial (Sem necessidade de chaves)</option>
+                        <option value="9router">9Router Local (Gemini 3 Flash / GPT)</option>
+                        <option value="gemini">Google Gemini API Oficial</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Gemini API Key (Opcional)</label>
+                    <input type="password" id="set-gemini-key" placeholder="AIzaSy..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl transition-all shadow-lg shadow-indigo-600/20">
+                        Salvar Configurações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 px-4 text-center text-xs text-slate-500 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-gamepad text-indigo-400"></i>
+                <span class="font-bold text-slate-300">NEXUS GAMING AUTOPILOT</span> • Notícias em Tempo Real
+            </div>
+            <p>Conectado ao Reddit /r/Games, /r/gaming & GamerPower</p>
+        </div>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>
